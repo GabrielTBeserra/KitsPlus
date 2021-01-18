@@ -1,0 +1,19 @@
+name: KitsPlus
+version: ${project.version}
+main: br.com.fallcraft.kitsplus.core.KitPlus
+api-version: 1.8.8
+prefix: KITS_PLUS
+authors: [ 1Ursoo ]
+description: Plugin for kits
+commands:
+  kit:
+    description: Abre o menu para ver todos os kits disponiveis.
+    usage: Use /kit.
+  createkit:
+    description: Cria um novo kit.
+    permission: kitsplus.kitcreate
+    usage: Use /createkit <nome> <posicao> <horas> [permissao].
+  delkit:
+    description: Deleta um kit.
+    permission: kitsplus.delkit
+    usage: Use /delkit <nome>.
