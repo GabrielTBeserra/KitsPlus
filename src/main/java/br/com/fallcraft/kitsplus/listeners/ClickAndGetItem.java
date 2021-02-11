@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -48,10 +49,23 @@ public class ClickAndGetItem implements Listener {
         }
         // Pega o nome do kit no arquivo de configuracoes
         String kitName = KitConfig.getKitFIle().getString("kit." + kit + ".name");
+
+
         // Recupera o inventario serializado
-        String invString = SaveInventory.recovery(plugin, kitName);
+        //String invString = SaveInventory.recovery(plugin, kitName);
+        String invS = SerializeInv.recovery(plugin, kitName);
+
+
         // Converte o inventario serializado em inventario objeto
-        Inventory inventory = SaveInventory.StringToInventory(invString);
+        //Inventory inventory = SaveInventory.StringToInventory(invString);
+        ItemStack[] inventory = null;
+        try {
+            inventory = SerializeInv.itemStackArrayFromBase64(invS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         // Pega qual player que esta clicando no intenrio
         Player player = (Player) event.getWhoClicked();
 
@@ -97,9 +111,11 @@ public class ClickAndGetItem implements Listener {
         event.setCancelled(true);
 
 
-        for (ItemStack content : inventory.getContents()) {
-            if (content != null) {
-                player.getInventory().addItem(content);
+        if (inventory != null) {
+            for (ItemStack content : inventory) {
+                if (content != null) {
+                    player.getInventory().addItem(content);
+                }
             }
         }
 

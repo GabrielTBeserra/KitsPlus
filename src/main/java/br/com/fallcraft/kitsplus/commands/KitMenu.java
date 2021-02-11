@@ -23,7 +23,7 @@ import java.util.List;
 
 public class KitMenu {
     public static void openInv(final Player player, final FileConfiguration locationFile) throws Exception {
-        Inventory inventory = Bukkit.createInventory(player, 45, Ultilities.formater("&9&lKits"));
+        Inventory inventory = Bukkit.createInventory(player, ServerUtils.MENU_SIZE, Ultilities.formater("&9&lKits"));
 
         if (!locationFile.contains("kit")) {
             player.sendMessage(Ultilities.formater(ServerUtils.SERVER_NAME + "&c&lNenhum kit definido"));
@@ -37,7 +37,7 @@ public class KitMenu {
         background.setItemMeta(backMeta);
 
 
-        for (int i = 0; i < 45; i++) {
+        for (int i = 0; i < ServerUtils.MENU_SIZE; i++) {
             inventory.setItem(i, background);
         }
 

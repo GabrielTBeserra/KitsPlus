@@ -3,10 +3,7 @@ package br.com.fallcraft.kitsplus.listeners;
 import br.com.fallcraft.kitsplus.commands.CreateKit;
 import br.com.fallcraft.kitsplus.core.KitInv;
 import br.com.fallcraft.kitsplus.core.KitPlus;
-import br.com.fallcraft.kitsplus.utils.KitConfig;
-import br.com.fallcraft.kitsplus.utils.SaveInventory;
-import br.com.fallcraft.kitsplus.utils.ServerUtils;
-import br.com.fallcraft.kitsplus.utils.Ultilities;
+import br.com.fallcraft.kitsplus.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,8 +32,11 @@ public class CloseAndCreateKit implements Listener {
         Inventory inventory = event.getInventory();
 
 
-        String invent = SaveInventory.InventoryToString(inventory);
-        SaveInventory.save(plugin, invent, kit.getKitName());
+        //String invent = SaveInventory.InventoryToString(inventory);
+        //SaveInventory.save(plugin, invent, kit.getKitName());
+        String inv = SerializeInv.toBase64(inventory);
+        SerializeInv.save(plugin , inv , kit.getKitName());
+
 
 
         KitConfig.getKitFIle().set("kit." + kit.getKitName() + ".name", kit.getKitName());
